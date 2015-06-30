@@ -16,7 +16,7 @@ Remember to include the Composer autoloader in your application:
 <?php
 require_once 'vendor/autoload.php';
 
-$clearbit = new Clearbit\Client(['api_token' => 'my-api-token']);
+$clearbit = Clearbit\Client::factory(['api_token' => 'my-api-token']);
 
 $person = $clearbit->getPerson(['email' => 'foo@bar.com']); // returns a Clearbit/Person instance
 var_dump($person->get('name.fullname'));
@@ -24,7 +24,7 @@ var_dump($person->get('name.fullname'));
 $company = $clearbit->getCompany(['domain' => 'bar.com'])); // returns a Clearbit/Company instance
 var_dump($company->get('name'));
 
-$combined = $clearbit->getCombined(['email' => 'foo@bar.com']); // returns an array ['person' => Clearbit/Person, 'company' => Clearbit/Company]
+$combined = $clearbit->getPersonCombined(['email' => 'foo@bar.com']); // returns an array ['person' => Clearbit/Person, 'company' => Clearbit/Company]
 var_dump($combined['person']->get('name.fullname'));
 var_dump($combined['company']->get('name'));
 ```
