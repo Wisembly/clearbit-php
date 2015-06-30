@@ -1,0 +1,94 @@
+{
+    "name": "Clearbit person",
+    "description": "The Clearbit API for person",
+    "baseUrl": "https://person.clearbit.com",
+    "operations": {
+        "getPerson": {
+            "summary": "Retrieves a person by email address.",
+            "httpMethod": "GET",
+            "uri": "/v1/people/email/{email}",
+            "parameters": {
+                "email": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                },
+                "subscribe": {
+                    "location": "query",
+                    "type": "boolean"
+                },
+                "apiVersion": {
+                    "location": "header",
+                    "default": "2015-05-27",
+                    "static": true,
+                    "sentAs": "API-Version"
+                }
+            },
+            "responseClass": "Clearbit\\Person"
+        },
+        "getPersonCombined": {
+            "extends": "getPerson",
+            "summary": "Clearbit is looking up a person based on a email address and also a company based on on the email’s domain. To save you making two requests to do this, we offer a combined lookup API.",
+            "uri": "/v1/combined/email/{email}",
+            "responseClass": "Clearbit\\Combined"
+        },
+        "flagPerson": {
+            "summary": "You can flag a person as incorrect and also optionally pass through a correct set of attributes.",
+            "httpMethod": "POST",
+            "uri": "/v1/people/{id}/flag",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": "true",
+                    "type": "string"
+                },
+                "given_name": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "family_name": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "employment_title": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "facebook_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "github_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "twitter_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "linkedin_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "googleplus_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "angellist_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "aboutme_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "apiVersion": {
+                    "location": "header",
+                    "default": "2015-05-27",
+                    "static": true,
+                    "sentAs": "API-Version"
+                }
+            }
+        }
+    }
+}

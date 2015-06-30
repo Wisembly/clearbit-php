@@ -1,0 +1,8 @@
+{
+    "name": "Clearbit API",
+    "description": "Clearbit API client built on top of Guzzle 3",
+    "includes": [
+        "person.json",
+        "company.json"
+    ]
+}

@@ -1,0 +1,100 @@
+{
+    "name": "Clearbit company",
+    "description": "The Clearbit API for company",
+    "operations": {
+        "getCompany": {
+            "summary": "Retrieves a company by domain name",
+            "httpMethod": "GET",
+            "uri": "https://company.clearbit.com/v1/companies/domain/{domain}",
+            "parameters": {
+                "domain": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                },
+                "apiVersion": {
+                    "location": "header",
+                    "default": "2015-06-23",
+                    "static": true,
+                    "sentAs": "API-Version"
+                }
+            },
+            "responseClass": "Clearbit\\Company"
+        },
+        "flagCompany": {
+            "summary": "You can flag a company as incorrect and also optionally pass through a correct set of attributes.",
+            "httpMethod": "POST",
+            "uri": "https://company.clearbit.com/v1/companies/{id}/flag",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": "true",
+                    "type": "string"
+                },
+                "name": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "tags": {
+                    "location": "postField",
+                    "type": "array"
+                },
+                "description": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "raised": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "location": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "facebook_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "twitter_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "linkedin_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "angellist_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "crunchbase_handle": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "employees": {
+                    "location": "postField",
+                    "type": "integer"
+                },
+                "logo": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "email_provider": {
+                    "location": "postField",
+                    "type": "boolean"
+                },
+                "type": {
+                    "location": "postField",
+                    "type": "string"
+                },
+                "apiVersion": {
+                    "location": "header",
+                    "default": "2015-06-23",
+                    "static": true,
+                    "sentAs": "API-Version"
+                }
+            }
+        }
+    }
+}
+
