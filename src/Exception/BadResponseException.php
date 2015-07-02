@@ -21,6 +21,12 @@ class BadResponseException extends GuzzleBadResponseException implements Clearbi
             $class = __CLASS__;
         }
 
+        $message = $label . PHP_EOL . implode(PHP_EOL, array(
+            '[status code] ' . $response->getStatusCode(),
+            '[reason phrase] ' . $response->getReasonPhrase(),
+            '[url] ' . $request->getUrl(),
+        ));
+
         $e = new self($message);
         $e->setResponse($response);
         $e->setRequest($request);
