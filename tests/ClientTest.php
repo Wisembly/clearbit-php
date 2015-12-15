@@ -65,7 +65,7 @@ class ClientTest extends GuzzleTestCase
         $client->addSubscriber($mock);
         $client->getPerson(['email' => 'foo@bar']);
     }
-
+    /*
     public function testGetPersonInRealLife()
     {
         if (!isset($_SERVER['API_TOKEN'])) {
@@ -79,6 +79,7 @@ class ClientTest extends GuzzleTestCase
         $this->assertEquals('d54c54ad-40be-4305-8a34-0ab44710b90d', $result->get('id'));
         $this->assertFalse($result->get('fuzzy'));
     }
+    */
 
     public function testGetPersonCombinedShouldFindAPersonAndACompany()
     {
@@ -168,7 +169,7 @@ class ClientTest extends GuzzleTestCase
         $client->addSubscriber($mock);
         $client->getCompany(['domain' => 'foo.bar']);
     }
-
+    /*
     public function testGetCompanyInRealLife()
     {
         if (!isset($_SERVER['API_TOKEN'])) {
@@ -180,6 +181,15 @@ class ClientTest extends GuzzleTestCase
 
         $this->assertInstanceOf('Clearbit\Company', $result);
         $this->assertEquals('Uber', $result->get('name'));
+    }
+    */
+    public function testGetAutocompleteInRealLife()
+    {
+        $client = $this->getServiceBuilder()->get('clearbit');
+        $result = $client->getAutocomplete(['name' => 'stripe']);
+
+        $this->assertInstanceOf('Clearbit\Autocomplete', $result);
+        $this->assertEquals('stripe.com', $result->get('0.domain'));
     }
 
     public function testFlagCompanyShouldBeValid()
