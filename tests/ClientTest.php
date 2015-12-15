@@ -168,7 +168,7 @@ class ClientTest extends GuzzleTestCase
         $client->addSubscriber($mock);
         $client->getCompany(['domain' => 'foo.bar']);
     }
-    
+
     public function testGetCompanyInRealLife()
     {
         if (!isset($_SERVER['API_TOKEN'])) {
