@@ -181,6 +181,41 @@ class ClientTest extends GuzzleTestCase
         $this->assertInstanceOf('Clearbit\Company', $result);
         $this->assertEquals('Uber', $result->get('name'));
     }
+    
+    public function testGetAutocompleteShouldFindACompany()
+    {
+        $mock = new MockPlugin();
+        $mock->addResponse(new Response(200, [], self::AUTOCOMPLETE));
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $result = $client->getAutocomplete(['name' => 'jobbrander']);
+
+        $this->assertInstanceOf('Clearbit\Autocomplete', $result);
+        $this->assertEquals('jobbrander.com', $result->get('0.domain'));
+        $this->assertEquals('JobBrander', $result->get('0.name'));
+        $this->assertEquals(json_decode(self::AUTOCOMPLETE, true), $result->toArray());
+    }
+
+    /** @expectedException Clearbit\Exception\NotFoundException */
+    public function testGetAutocompleteOnUnexistentCompanyShouldReturnNotFoundException()
+    {
+        $mock = new MockPlugin();
+        $mock->addResponse(new Response(404));
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $client->getAutocomplete(['name' => '21fwfdsacdsfeq43r432f']);
+    }
+    
+    public function testGetAutocompleteInRealLife()
+    {
+        $client = $this->getServiceBuilder()->get('clearbit');
+        $result = $client->getAutocomplete(['name' => 'stripe']);
+
+        $this->assertInstanceOf('Clearbit\Autocomplete', $result);
+        $this->assertEquals('stripe.com', $result->get('0.domain'));
+    }
 
     public function testFlagCompanyShouldBeValid()
     {
@@ -354,6 +389,16 @@ EOF;
   "emailProvider": false,
   "type": "private"
 }
+EOF;
+    
+    const AUTOCOMPLETE = <<<EOF
+[
+  {
+    "domain": "jobbrander.com",
+    "logo": "https://logo.clearbit.com/jobbrander.com",
+    "name": "JobBrander"
+  }
+]
 EOF;
 
 }

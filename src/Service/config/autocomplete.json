@@ -1,0 +1,20 @@
+{
+    "name": "Clearbit autocomplete",
+    "description": "The Clearbit API for autocomplete",
+    "operations": {
+        "getAutocomplete": {
+            "summary": "Autocomplete a company domain and image by searching for company name",
+            "httpMethod": "GET",
+            "uri": "https://autocomplete.clearbit.com/v1/companies/suggest?query={name}",
+            "parameters": {
+                "name": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "Clearbit\\Autocomplete"
+        }
+    }
+}
+
