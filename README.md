@@ -27,6 +27,9 @@ var_dump($company->get('name'));
 $combined = $clearbit->getPersonCombined(['email' => 'foo@bar.com']); // returns an array ['person' => Clearbit/Person, 'company' => Clearbit/Company]
 var_dump($combined['person']->get('name.fullname'));
 var_dump($combined['company']->get('name'));
+
+$autocomplete = $clearbit->getAutocomplete(['name' => 'foo'])); // returns a Clearbit/Autocomplete instance
+var_dump($autocomplete->get('0.domain'));
 ```
 
 ## Testing
@@ -38,13 +41,14 @@ Run `bin/phpunit`
 
 Resources this API supports:
 
-| Uri                                                       | Methods   | Comments          |
-| --------------------------------------------------------- | --------- | ---------         |
-| https://person.clearbit.com/v1/people/email/:email        | GET       |                   |
-| https://person.clearbit.com/v1/combined/email/:email      | GET       |                   |
-| https://person.clearbit.com/v1/people/:id/flag            | POST      | /!\ untested yet  |
-| https://company.clearbit.com/v1/companies/domain/:domain  | GET       |                   |
-| https://company.clearbit.com/v1/companies/:id/flag        | POST      | /!\ untested yet  |
+| Uri                                                                   | Methods   | Comments          |
+| --------------------------------------------------------------------- | --------- | ---------         |
+| https://person.clearbit.com/v1/people/email/:email                    | GET       |                   |
+| https://person.clearbit.com/v1/combined/email/:email                  | GET       |                   |
+| https://person.clearbit.com/v1/people/:id/flag                        | POST      | /!\ untested yet  |
+| https://company.clearbit.com/v1/companies/domain/:domain              | GET       |                   |
+| https://company.clearbit.com/v1/companies/:id/flag                    | POST      | /!\ untested yet  |
+| https://autocomplete.clearbit.com/v1/companies/suggest?query=:name    | GET       |                   |
 
 ## Licence
 
