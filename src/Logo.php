@@ -3,6 +3,7 @@
 namespace Clearbit;
 
 use Guzzle\Service\Command\OperationCommand;
+use Clearbit\Exception\BadResponseException;
 
 class Logo extends AbstractModel
 {
@@ -15,7 +16,7 @@ class Logo extends AbstractModel
         if ($info['content_type'] === 'image/png' || $info['content_type'] === 'image/jpg') {
             return new static(['logo' => $info['url']]);
         }
-        return false;
+        throw new BadResponseException('Content type invalid. API returned '.$info['content_type']);
     }
 
 }

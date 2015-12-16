@@ -246,7 +246,8 @@ class ClientTest extends GuzzleTestCase
         $this->assertEquals($url, $result->get('logo'));
     }
 
-    public function testGetLogoNonImageShouldReturnNotFoundException()
+    /** @expectedException Clearbit\Exception\BadResponseException */
+    public function testGetLogoContentIsNotImageShouldReturnBadResponseException()
     {
         $domain = 'stripe.com';
         $url = 'https://logo.clearbit.com/'.$domain.'?size=128&format=png&greyscale=false';
@@ -264,8 +265,6 @@ class ClientTest extends GuzzleTestCase
         $client = Client::factory(['api_token' => 'foo']);
         $client->addSubscriber($mock);
         $result = $client->getLogo(['domain' => $domain]);
-
-        $this->assertFalse($result);
     }
 
     /** @expectedException Clearbit\Exception\NotFoundException */
