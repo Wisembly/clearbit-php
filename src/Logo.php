@@ -15,6 +15,7 @@ class Logo extends AbstractModel
         if ($info['content_type'] === 'image/png' || $info['content_type'] === 'image/jpg') {
             return new static(['logo' => $info['url']]);
         }
+        return false;
     }
 
 }

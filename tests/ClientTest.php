@@ -223,6 +223,62 @@ class ClientTest extends GuzzleTestCase
     }
     */
 
+    public function testGetLogoShouldFindALogo()
+    {
+        $domain = 'stripe.com';
+        $url = 'https://logo.clearbit.com/'.$domain.'?size=128&format=png&greyscale=false';
+        $info = [
+            'url' => $url,
+            'content_type' => 'image/png',
+        ];
+
+        $response = new Response(200);
+        $response->setInfo($info);
+
+        $mock = new MockPlugin();
+        $mock->addResponse($response);
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $result = $client->getLogo(['domain' => $domain]);
+
+        $this->assertInstanceOf('Clearbit\Logo', $result);
+        $this->assertEquals($url, $result->get('logo'));
+    }
+
+    public function testGetLogoNonImageShouldReturnNotFoundException()
+    {
+        $domain = 'stripe.com';
+        $url = 'https://logo.clearbit.com/'.$domain.'?size=128&format=png&greyscale=false';
+        $info = [
+            'url' => $url,
+            'content_type' => 'json/text',
+        ];
+
+        $response = new Response(200);
+        $response->setInfo($info);
+
+        $mock = new MockPlugin();
+        $mock->addResponse($response);
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $result = $client->getLogo(['domain' => $domain]);
+
+        $this->assertFalse($result);
+    }
+
+    /** @expectedException Clearbit\Exception\NotFoundException */
+    public function testGetLogoOnUnexistentLogoShouldReturnNotFoundException()
+    {
+        $mock = new MockPlugin();
+        $mock->addResponse(new Response(404));
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $client->getLogo(['domain' => uniqid()]);
+    }
+
     public function testGetLogoInRealLife()
     {
         $domain = 'stripe.com';
