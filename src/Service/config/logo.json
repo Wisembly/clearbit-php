@@ -1,0 +1,38 @@
+{
+    "name": "Clearbit logo",
+    "description": "The Clearbit API for logo",
+    "operations": {
+        "getLogo": {
+            "summary": "Get a company logo by their domain",
+            "httpMethod": "GET",
+            "uri": "https://logo.clearbit.com/{domain}?size={size}&format={format}&greyscale={greyscale}",
+            "parameters": {
+                "domain": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                },
+                "size": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "string",
+                    "default": "128"
+                },
+                "format": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "string",
+                    "default": "png"
+                },
+                "greyscale": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "string",
+                    "default": "false"
+                }
+            },
+            "responseClass": "Clearbit\\Logo"
+        }
+    }
+}
+
