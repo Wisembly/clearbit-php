@@ -182,6 +182,107 @@ class ClientTest extends GuzzleTestCase
         $this->assertEquals('Uber', $result->get('name'));
     }
 
+    public function testGetAutocompleteShouldFindACompany()
+    {
+        $mock = new MockPlugin();
+        $mock->addResponse(new Response(200, [], self::AUTOCOMPLETE));
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $result = $client->getAutocomplete(['name' => 'jobbrander']);
+
+        $this->assertInstanceOf('Clearbit\Autocomplete', $result);
+        $this->assertEquals('jobbrander.com', $result->get('0.domain'));
+        $this->assertEquals('JobBrander', $result->get('0.name'));
+        $this->assertEquals(json_decode(self::AUTOCOMPLETE, true), $result->toArray());
+    }
+
+    /** @expectedException Clearbit\Exception\NotFoundException */
+    public function testGetAutocompleteOnUnexistentCompanyShouldReturnNotFoundException()
+    {
+        $mock = new MockPlugin();
+        $mock->addResponse(new Response(404));
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $client->getAutocomplete(['name' => '21fwfdsacdsfeq43r432f']);
+    }
+
+    public function testGetAutocompleteInRealLife()
+    {
+        $client = $this->getServiceBuilder()->get('clearbit');
+        $result = $client->getAutocomplete(['name' => 'stripe']);
+
+        $this->assertInstanceOf('Clearbit\Autocomplete', $result);
+        $this->assertEquals('stripe.com', $result->get('0.domain'));
+    }
+
+    public function testGetLogoShouldFindALogo()
+    {
+        $domain = 'stripe.com';
+        $url = 'https://logo.clearbit.com/'.$domain.'?size=128&format=png&greyscale=false';
+        $info = [
+            'url' => $url,
+            'content_type' => 'image/png',
+        ];
+
+        $response = new Response(200);
+        $response->setInfo($info);
+
+        $mock = new MockPlugin();
+        $mock->addResponse($response);
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $result = $client->getLogo(['domain' => $domain]);
+
+        $this->assertInstanceOf('Clearbit\Logo', $result);
+        $this->assertEquals($url, $result->get('logo'));
+    }
+
+    /** @expectedException Clearbit\Exception\BadResponseException */
+    public function testGetLogoContentIsNotImageShouldReturnBadResponseException()
+    {
+        $domain = 'stripe.com';
+        $url = 'https://logo.clearbit.com/'.$domain.'?size=128&format=png&greyscale=false';
+        $info = [
+            'url' => $url,
+            'content_type' => 'json/text',
+        ];
+
+        $response = new Response(200);
+        $response->setInfo($info);
+
+        $mock = new MockPlugin();
+        $mock->addResponse($response);
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $result = $client->getLogo(['domain' => $domain]);
+    }
+
+    /** @expectedException Clearbit\Exception\NotFoundException */
+    public function testGetLogoOnUnexistentLogoShouldReturnNotFoundException()
+    {
+        $mock = new MockPlugin();
+        $mock->addResponse(new Response(404));
+
+        $client = Client::factory(['api_token' => 'foo']);
+        $client->addSubscriber($mock);
+        $client->getLogo(['domain' => uniqid()]);
+    }
+
+    public function testGetLogoInRealLife()
+    {
+        $domain = 'stripe.com';
+        $url = 'https://logo.clearbit.com/'.$domain.'?size=128&format=png&greyscale=false';
+        $client = $this->getServiceBuilder()->get('clearbit');
+        $result = $client->getLogo(['domain' => $domain]);
+
+        $this->assertInstanceOf('Clearbit\Logo', $result);
+        $this->assertEquals($url, $result->get('logo'));
+    }
+
     public function testFlagCompanyShouldBeValid()
     {
         $this->markTestIncomplete();
@@ -354,6 +455,16 @@ EOF;
   "emailProvider": false,
   "type": "private"
 }
+EOF;
+    
+    const AUTOCOMPLETE = <<<EOF
+[
+  {
+    "domain": "jobbrander.com",
+    "logo": "https://logo.clearbit.com/jobbrander.com",
+    "name": "JobBrander"
+  }
+]
 EOF;
 
 }

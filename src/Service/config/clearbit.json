@@ -3,6 +3,8 @@
     "description": "Clearbit API client built on top of Guzzle 3",
     "includes": [
         "person.json",
-        "company.json"
+        "company.json",
+        "autocomplete.json",
+        "logo.json"
     ]
 }
