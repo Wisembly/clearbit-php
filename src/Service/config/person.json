@@ -19,7 +19,7 @@
                 },
                 "apiVersion": {
                     "location": "header",
-                    "default": "2015-05-27",
+                    "default": "2015-10-15",
                     "static": true,
                     "sentAs": "API-Version"
                 }
