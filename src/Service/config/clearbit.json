@@ -4,6 +4,7 @@
     "includes": [
         "person.json",
         "company.json",
-        "autocomplete.json"
+        "autocomplete.json",
+        "logo.json"
     ]
 }
