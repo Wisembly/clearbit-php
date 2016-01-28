@@ -19,7 +19,7 @@ Guzzle\Tests\GuzzleTestCase::setServiceBuilder(
             'clearbit' =>  [
                 'class' => 'Clearbit\Client',
                 'params' => [
-                    'api_token' => $_SERVER['API_TOKEN']
+                    'api_token' => array_key_exists('API_TOKEN', $_SERVER) ? $_SERVER['API_TOKEN'] : null
                 ]
             ]
         ]
