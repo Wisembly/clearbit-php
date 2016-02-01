@@ -2,9 +2,11 @@
 
 namespace Clearbit\Tests;
 
+use Prophecy\Argument;
+
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\ResponseInterface;
-use Http\Mock\Client;
+use Http\Client\HttpClient;
 
 use Http\Client\Plugin\PluginClient;
 use Http\Client\Plugin\AuthenticationPlugin;
@@ -25,10 +27,10 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $response = $this->prophesize(ResponseInterface::class);
         $response->getStatusCode()->willReturn(404);
 
-        $client = new Client();
-        $client->addResponse($response->reveal());
+        $client = $this->prophesize(HttpClient::class);
+        $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client);
+        $clearbit = new Clearbit($client->reveal());
         $combined = $clearbit->getCombined('foo@bar.baz');
     }
 
@@ -38,10 +40,10 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $response = $this->prophesize(ResponseInterface::class);
         $response->getStatusCode()->willReturn(202);
 
-        $client = new Client();
-        $client->addResponse($response->reveal());
+        $client = $this->prophesize(HttpClient::class);
+        $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client);
+        $clearbit = new Clearbit($client->reveal());
         $combined = $clearbit->getCombined('foo@bar.baz');
     }
 
@@ -52,10 +54,10 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $response->getStatusCode()->willReturn(500);
         $response->getReasonPhrase()->shouldBeCalled();
 
-        $client = new Client();
-        $client->addResponse($response->reveal());
+        $client = $this->prophesize(HttpClient::class);
+        $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client);
+        $clearbit = new Clearbit($client->reveal());
         $combined = $clearbit->getCombined('foo@bar.baz');
     }
 
@@ -68,10 +70,10 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $response->getBody()->willReturn($body->reveal());
         $response->getStatusCode()->willReturn(200);
 
-        $client = new Client();
-        $client->addResponse($response->reveal());
+        $client = $this->prophesize(HttpClient::class);
+        $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client);
+        $clearbit = new Clearbit($client->reveal());
         $combined = $clearbit->getCombined('foo@bar.baz');
 
         $this->assertInstanceof(Model\Combined::class, $combined);
@@ -90,10 +92,10 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $response->getBody()->willReturn($body->reveal());
         $response->getStatusCode()->willReturn(200);
 
-        $client = new Client();
-        $client->addResponse($response->reveal());
+        $client = $this->prophesize(HttpClient::class);
+        $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client);
+        $clearbit = new Clearbit($client->reveal());
         $combined = $clearbit->getCombined('foo@bar.baz');
 
         $this->assertInstanceof(Model\Combined::class, $combined);
