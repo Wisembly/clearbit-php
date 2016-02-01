@@ -1,0 +1,299 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Clearbit Person API",
+        "description": "The Clearbit API for person",
+        "version": "v2"
+    },
+    "host": "person.clearbit.com",
+    "basePath": "/v2",
+    "schemes": ["https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/combined/find": {
+            "get": {
+                "summary": "Retrieves a person and company by email address",
+                "description": "Retrieves a person and company by email address.",
+                "operationId": "getCombined",
+                "responses": {
+                    "200": {
+                        "description": "No Error",
+                        "schema": {
+                            "$ref": "#/definitions/Combined"
+                        }
+                    },
+                    "202": {
+                        "description": "Async lookup"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "the person's email address",
+                        "required": "true",
+                        "type": "string",
+                        "format": "email"
+                    }
+                ],
+                "tags": [
+                    "Combined"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Combined": {
+            "type": "object",
+            "properties": {
+                "person": {
+                    "$ref": "#/definitions/Person"
+                },
+                "company": {
+                    "$ref": "#/definitions/Company"
+                }
+            }
+        },
+        "Geo": {
+            "type": "object",
+            "properties": {
+                "streetNumber": {
+                    "type": "string"
+                },
+                "streetName": {
+                    "type": "string"
+                },
+                "subPremise": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "stateCode": {
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "countryCode": {
+                    "type": "string"
+                },
+                "lat": {
+                    "type": "float"
+                },
+                "lng": {
+                    "type": "float"
+                }
+            }
+        },
+        "Person": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "fuzzy": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "utcOffset": {
+                    "type": "integer"
+                },
+                "geo": {
+                    "$ref": "#/definitions/Geo"
+                },
+                "bio": {
+                    "type": "string"
+                },
+                "site": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "employment": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "facebook": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "github": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "twitter": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "linkedin": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "googleplus": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "angellist": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "aboutme": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Company": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "legalName": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "domainAliases": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                    }
+                },
+                "sites": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "foundedDate": {
+                    "type": "date"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "utcOffset": {
+                    "type": "integer"
+                },
+                "geo": {
+                    "$ref": "#/definitions/Geo"
+                },
+                "metrics": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "logo": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "emailProvider": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "tech": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "crunchbase": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "angellist": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "twitter": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "linkedin": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "facebook": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
