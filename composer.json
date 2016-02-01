@@ -12,7 +12,8 @@
 
     "autoload": {
         "psr-4": {
-            "Clearbit\\": "src/"
+            "Clearbit\\": "src/",
+            "Clearbit\\Generated\\": "generated/"
         }
     },
 
@@ -28,7 +29,8 @@
         "php-http/client-implementation": "^1.0",
         "php-http/message": "^1.0",
         "php-http/plugins": "^1.0",
-         "guzzlehttp/psr7": "^1.2"
+        "guzzlehttp/psr7": "^1.2"
+
     },
 
     "require-dev": {

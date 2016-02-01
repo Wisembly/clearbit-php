@@ -61,7 +61,7 @@ This client is build using [jane-openapi](https://github.com/jolicode/jane-opena
 To generate the classes:
 
 ```
-./vendor/bin/jane-openapi generate combined-swagger.json Clearbit\\Generated src/Generated
+./vendor/bin/jane-openapi generate combined-swagger.json Clearbit\\Generated generated
 ```
 
 ## Licence
