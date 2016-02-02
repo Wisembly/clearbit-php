@@ -16,18 +16,36 @@ class CombinedResource extends Resource
      *     @var string $email the person's email address
      * }
      * @param string $fetch      Fetch mode (object or response)
+     * @param array  $options
      *
      * @return \Psr\Http\Message\ResponseInterface|\Clearbit\Generated\Model\Combined
      */
-    public function getCombined($parameters = array(), $fetch = self::FETCH_OBJECT)
-    {
+    public function getCombined(
+        $parameters = [],
+        $fetch = self::FETCH_OBJECT,
+        $options = []
+    ) {
         $queryParam = new QueryParam();
         $queryParam->setRequired('email');
 
-        $url = 'https://person.clearbit.com/v2/combined/find';
-        $url = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $options = array_merge([
+            'scheme' => 'https',
+            'host' => 'person.clearbit.com',
+            'path' => '/v2/combined/find'
+        ], $options);
 
-        $headers = array_merge(array('Host' => 'person.clearbit.com'), $queryParam->buildHeaders($parameters));
+        $url = sprintf(
+            '%s://%s%s?%s',
+            $options['scheme'],
+            $options['host'],
+            $options['path'],
+            $queryParam->buildQueryString($parameters)
+        );
+
+        $headers = array_merge(
+            ['Host' => $options['host']],
+            $queryParam->buildHeaders($parameters)
+        );
         $body = $queryParam->buildFormDataString($parameters);
 
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
