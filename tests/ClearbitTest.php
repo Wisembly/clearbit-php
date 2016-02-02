@@ -11,10 +11,10 @@ use Http\Client\HttpClient;
 use Http\Client\Plugin\PluginClient;
 use Http\Client\Plugin\AuthenticationPlugin;
 use Http\Client\Curl\Client as CurlHttpClient;
+use Http\Adapter\Guzzle6\Client as GuzzleHttpClient;
 
 use Http\Message\Authentication\Bearer;
-use Http\Message\StreamFactory\GuzzleStreamFactory;
-use Http\Message\MessageFactory\GuzzleMessageFactory;
+use Http\Message\MessageFactory;
 
 use Clearbit\Generated\Model;
 use Clearbit\Clearbit;
@@ -30,7 +30,7 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $client = $this->prophesize(HttpClient::class);
         $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client->reveal());
+        $clearbit = new Clearbit($client->reveal(), new MessageFactory\GuzzleMessageFactory);
         $combined = $clearbit->getCombined('foo@bar.baz');
     }
 
@@ -43,7 +43,7 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $client = $this->prophesize(HttpClient::class);
         $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client->reveal());
+        $clearbit = new Clearbit($client->reveal(), new MessageFactory\GuzzleMessageFactory);
         $combined = $clearbit->getCombined('foo@bar.baz');
     }
 
@@ -57,7 +57,7 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $client = $this->prophesize(HttpClient::class);
         $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client->reveal());
+        $clearbit = new Clearbit($client->reveal(), new MessageFactory\GuzzleMessageFactory);
         $combined = $clearbit->getCombined('foo@bar.baz');
     }
 
@@ -73,7 +73,7 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $client = $this->prophesize(HttpClient::class);
         $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client->reveal());
+        $clearbit = new Clearbit($client->reveal(), new MessageFactory\GuzzleMessageFactory);
         $combined = $clearbit->getCombined('foo@bar.baz');
 
         $this->assertInstanceof(Model\Combined::class, $combined);
@@ -95,7 +95,7 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
         $client = $this->prophesize(HttpClient::class);
         $client->sendRequest(Argument::any())->shouldBeCalled()->willReturn($response->reveal());
 
-        $clearbit = new Clearbit($client->reveal());
+        $clearbit = new Clearbit($client->reveal(), new MessageFactory\GuzzleMessageFactory);
         $combined = $clearbit->getCombined('foo@bar.baz');
 
         $this->assertInstanceof(Model\Combined::class, $combined);
@@ -110,12 +110,12 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('API_TOKEN is not available');
         }
 
-        $socketClient = new CurlHttpClient(new GuzzleMessageFactory, new GuzzleStreamFactory);
+        $socketClient = new GuzzleHttpClient();
         $authenticationPlugin = new AuthenticationPlugin(new Bearer($_SERVER['API_TOKEN']));
 
         $client = new PluginClient($socketClient, [$authenticationPlugin]);
 
-        $clearbit = new Clearbit($client);
+        $clearbit = new Clearbit($client, new MessageFactory\GuzzleMessageFactory);
         $combined = $clearbit->getCombined('bill.gates@microsoft.com');
 
         $this->assertInstanceof(Model\Combined::class, $combined);

@@ -18,8 +18,11 @@ class Clearbit
     private $httpClient;
     private $combinedResource;
 
-    public function __construct(HttpClient $httpClient, Serializer $serializer = null, MessageFactory $messageFactory = null)
-    {
+    public function __construct(
+        HttpClient $httpClient,
+        MessageFactory $messageFactory,
+        Serializer $serializer = null
+    ) {
         $this->httpClient = $httpClient;
 
         if ($serializer === null) {
@@ -27,10 +30,6 @@ class Clearbit
                  new JsonEncoder(new JsonEncode(), new JsonDecode()),
                  new RawEncoder()
              ]);
-        }
-
-        if ($messageFactory === null) {
-            $messageFactory = new MessageFactory\GuzzleMessageFactory();
         }
 
         $this->serializer = $serializer;

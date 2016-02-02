@@ -8,13 +8,22 @@ We developped and maintain this library for our own usage and released it open
 source (see LICENCE.md) if it could help.
 Clearbit and its API belongs to Clearbit.
 
+## Install
+
+This client use [httplug](http://httplug.io/) for http client. Please
+[select](http://docs.php-http.org/en/latest/httplug/users.html) a client for
+your application and [select](http://docs.php-http.org/en/latest/message/message-factory.html) a MessageFactory.
+
+Exemple with guzzle6 as client and guzzlehttp as message factory:
+
+```
+"wisembly/clearbit-php": "^2.0",
+"php-http/guzzle6-adapter": "^1.0",
+"guzzlehttp/psr7": "^1.2"
+```
+
 ## Basic usage
 
-Remember to include the Composer autoloader in your application:
-
-This client use [httplug](http://httplug.io/) fot http client. Please
-[select](http://docs.php-http.org/en/latest/httplug/users.html) a client for
-your application.
 
 ```php
 <?php
@@ -23,20 +32,20 @@ require_once 'vendor/autoload.php';
 
 use Http\Client\Plugin\PluginClient;
 use Http\Client\Plugin\AuthenticationPlugin;
-use Http\Client\Curl\Client as CurlHttpClient;
 
 use Http\Message\Authentication\Bearer;
-use Http\Message\StreamFactory\GuzzleStreamFactory;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
+
+use Http\Adater\Guzzle6\Client as GuzzleHttpClient;
 
 use Clearbit\Clearbit;
 
-$socketClient = new CurlHttpClient(new GuzzleMessageFactory, new GuzzleStreamFactory);
+$socketClient = new GuzzleHttpClient();
 $authenticationPlugin = new AuthenticationPlugin(new Bearer($_SERVER['API_TOKEN']));
 
 $client = new PluginClient($socketClient, [$authenticationPlugin]);
 
-$clearbit = new Clearbit($client);
+$clearbit = new Clearbit($client, new GuzzleMessageFactory);
 $combined = $clearbit->getCombined('foo@bar.com');
 
 var_dump($combined->getPerson());
