@@ -27,7 +27,11 @@ class Company
     /**
      * @var string[]
      */
-    protected $sites;
+    protected $category;
+    /**
+     * @var string[]
+     */
+    protected $site;
     /**
      * @var string
      */
@@ -188,18 +192,35 @@ class Company
     /**
      * @return string[]
      */
-    public function getSites()
+    public function getCategory()
     {
-        return $this->sites;
+        return $this->category;
     }
     /**
-     * @param string[] $sites
+     * @param string[] $category
      *
      * @return self
      */
-    public function setSites(\ArrayObject $sites = null)
+    public function setCategory(\ArrayObject $category = null)
     {
-        $this->sites = $sites;
+        $this->category = $category;
+        return $this;
+    }
+    /**
+     * @return string[]
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+    /**
+     * @param string[] $site
+     *
+     * @return self
+     */
+    public function setSite(\ArrayObject $site = null)
+    {
+        $this->site = $site;
         return $this;
     }
     /**
