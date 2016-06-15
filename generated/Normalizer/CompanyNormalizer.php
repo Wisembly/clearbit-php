@@ -34,117 +34,124 @@ class CompanyNormalizer extends SerializerAwareNormalizer implements Denormalize
         if (!isset($context['rootSchema'])) {
             $context['rootSchema'] = $object;
         }
-        if (isset($data->{'id'})) {
+        if (property_exists($data, 'id')) {
             $object->setId($data->{'id'});
         }
-        if (isset($data->{'name'})) {
+        if (property_exists($data, 'name')) {
             $object->setName($data->{'name'});
         }
-        if (isset($data->{'legalName'})) {
+        if (property_exists($data, 'legalName')) {
             $object->setLegalName($data->{'legalName'});
         }
-        if (isset($data->{'domain'})) {
+        if (property_exists($data, 'domain')) {
             $object->setDomain($data->{'domain'});
         }
-        if (isset($data->{'domainAliases'})) {
-            $values_51 = array();
-            foreach ($data->{'domainAliases'} as $value_52) {
-                $values_51[] = $value_52;
+        if (property_exists($data, 'domainAliases')) {
+            $values = array();
+            foreach ($data->{'domainAliases'} as $value) {
+                $values[] = $value;
             }
-            $object->setDomainAliases($values_51);
+            $object->setDomainAliases($values);
         }
-        if (isset($data->{'sites'})) {
-            $values_53 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data->{'sites'} as $key_55 => $value_54) {
-                $values_53[$key_55] = $value_54;
+        if (property_exists($data, 'category')) {
+            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data->{'category'} as $key => $value_1) {
+                $values_1[$key] = $value_1;
             }
-            $object->setSites($values_53);
+            $object->setCategory($values_1);
         }
-        if (isset($data->{'description'})) {
+        if (property_exists($data, 'site')) {
+            $values_2 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data->{'site'} as $key_1 => $value_2) {
+                $values_2[$key_1] = $value_2;
+            }
+            $object->setSite($values_2);
+        }
+        if (property_exists($data, 'description')) {
             $object->setDescription($data->{'description'});
         }
-        if (isset($data->{'tags'})) {
-            $values_56 = array();
-            foreach ($data->{'tags'} as $value_57) {
-                $values_56[] = $value_57;
+        if (property_exists($data, 'tags')) {
+            $values_3 = array();
+            foreach ($data->{'tags'} as $value_3) {
+                $values_3[] = $value_3;
             }
-            $object->setTags($values_56);
+            $object->setTags($values_3);
         }
-        if (isset($data->{'foundedDate'})) {
+        if (property_exists($data, 'foundedDate')) {
             $object->setFoundedDate($data->{'foundedDate'});
         }
-        if (isset($data->{'location'})) {
+        if (property_exists($data, 'location')) {
             $object->setLocation($data->{'location'});
         }
-        if (isset($data->{'timeZone'})) {
+        if (property_exists($data, 'timeZone')) {
             $object->setTimeZone($data->{'timeZone'});
         }
-        if (isset($data->{'utcOffset'})) {
+        if (property_exists($data, 'utcOffset')) {
             $object->setUtcOffset($data->{'utcOffset'});
         }
-        if (isset($data->{'geo'})) {
+        if (property_exists($data, 'geo')) {
             $object->setGeo($this->serializer->deserialize($data->{'geo'}, 'Clearbit\\Generated\\Model\\Geo', 'raw', $context));
         }
-        if (isset($data->{'metrics'})) {
-            $values_58 = array();
-            foreach ($data->{'metrics'} as $value_59) {
-                $values_58[] = $value_59;
+        if (property_exists($data, 'metrics')) {
+            $values_4 = array();
+            foreach ($data->{'metrics'} as $value_4) {
+                $values_4[] = $value_4;
             }
-            $object->setMetrics($values_58);
+            $object->setMetrics($values_4);
         }
-        if (isset($data->{'logo'})) {
+        if (property_exists($data, 'logo')) {
             $object->setLogo($data->{'logo'});
         }
-        if (isset($data->{'phone'})) {
+        if (property_exists($data, 'phone')) {
             $object->setPhone($data->{'phone'});
         }
-        if (isset($data->{'emailProvider'})) {
+        if (property_exists($data, 'emailProvider')) {
             $object->setEmailProvider($data->{'emailProvider'});
         }
-        if (isset($data->{'type'})) {
+        if (property_exists($data, 'type')) {
             $object->setType($data->{'type'});
         }
-        if (isset($data->{'tech'})) {
-            $values_60 = array();
-            foreach ($data->{'tech'} as $value_61) {
-                $values_60[] = $value_61;
+        if (property_exists($data, 'tech')) {
+            $values_5 = array();
+            foreach ($data->{'tech'} as $value_5) {
+                $values_5[] = $value_5;
             }
-            $object->setTech($values_60);
+            $object->setTech($values_5);
         }
-        if (isset($data->{'crunchbase'})) {
-            $values_62 = array();
-            foreach ($data->{'crunchbase'} as $value_63) {
-                $values_62[] = $value_63;
+        if (property_exists($data, 'crunchbase')) {
+            $values_6 = array();
+            foreach ($data->{'crunchbase'} as $value_6) {
+                $values_6[] = $value_6;
             }
-            $object->setCrunchbase($values_62);
+            $object->setCrunchbase($values_6);
         }
-        if (isset($data->{'angellist'})) {
-            $values_64 = array();
-            foreach ($data->{'angellist'} as $value_65) {
-                $values_64[] = $value_65;
+        if (property_exists($data, 'angellist')) {
+            $values_7 = array();
+            foreach ($data->{'angellist'} as $value_7) {
+                $values_7[] = $value_7;
             }
-            $object->setAngellist($values_64);
+            $object->setAngellist($values_7);
         }
-        if (isset($data->{'twitter'})) {
-            $values_66 = array();
-            foreach ($data->{'twitter'} as $value_67) {
-                $values_66[] = $value_67;
+        if (property_exists($data, 'twitter')) {
+            $values_8 = array();
+            foreach ($data->{'twitter'} as $value_8) {
+                $values_8[] = $value_8;
             }
-            $object->setTwitter($values_66);
+            $object->setTwitter($values_8);
         }
-        if (isset($data->{'linkedin'})) {
-            $values_68 = array();
-            foreach ($data->{'linkedin'} as $value_69) {
-                $values_68[] = $value_69;
+        if (property_exists($data, 'linkedin')) {
+            $values_9 = array();
+            foreach ($data->{'linkedin'} as $value_9) {
+                $values_9[] = $value_9;
             }
-            $object->setLinkedin($values_68);
+            $object->setLinkedin($values_9);
         }
-        if (isset($data->{'facebook'})) {
-            $values_70 = array();
-            foreach ($data->{'facebook'} as $value_71) {
-                $values_70[] = $value_71;
+        if (property_exists($data, 'facebook')) {
+            $values_10 = array();
+            foreach ($data->{'facebook'} as $value_10) {
+                $values_10[] = $value_10;
             }
-            $object->setFacebook($values_70);
+            $object->setFacebook($values_10);
         }
         return $object;
     }
@@ -164,28 +171,35 @@ class CompanyNormalizer extends SerializerAwareNormalizer implements Denormalize
             $data->{'domain'} = $object->getDomain();
         }
         if (null !== $object->getDomainAliases()) {
-            $values_72 = array();
-            foreach ($object->getDomainAliases() as $value_73) {
-                $values_72[] = $value_73;
+            $values = array();
+            foreach ($object->getDomainAliases() as $value) {
+                $values[] = $value;
             }
-            $data->{'domainAliases'} = $values_72;
+            $data->{'domainAliases'} = $values;
         }
-        if (null !== $object->getSites()) {
-            $values_74 = new \stdClass();
-            foreach ($object->getSites() as $key_76 => $value_75) {
-                $values_74->{$key_76} = $value_75;
+        if (null !== $object->getCategory()) {
+            $values_1 = new \stdClass();
+            foreach ($object->getCategory() as $key => $value_1) {
+                $values_1->{$key} = $value_1;
             }
-            $data->{'sites'} = $values_74;
+            $data->{'category'} = $values_1;
+        }
+        if (null !== $object->getSite()) {
+            $values_2 = new \stdClass();
+            foreach ($object->getSite() as $key_1 => $value_2) {
+                $values_2->{$key_1} = $value_2;
+            }
+            $data->{'site'} = $values_2;
         }
         if (null !== $object->getDescription()) {
             $data->{'description'} = $object->getDescription();
         }
         if (null !== $object->getTags()) {
-            $values_77 = array();
-            foreach ($object->getTags() as $value_78) {
-                $values_77[] = $value_78;
+            $values_3 = array();
+            foreach ($object->getTags() as $value_3) {
+                $values_3[] = $value_3;
             }
-            $data->{'tags'} = $values_77;
+            $data->{'tags'} = $values_3;
         }
         if (null !== $object->getFoundedDate()) {
             $data->{'foundedDate'} = $object->getFoundedDate();
@@ -203,11 +217,11 @@ class CompanyNormalizer extends SerializerAwareNormalizer implements Denormalize
             $data->{'geo'} = $this->serializer->serialize($object->getGeo(), 'raw', $context);
         }
         if (null !== $object->getMetrics()) {
-            $values_79 = array();
-            foreach ($object->getMetrics() as $value_80) {
-                $values_79[] = $value_80;
+            $values_4 = array();
+            foreach ($object->getMetrics() as $value_4) {
+                $values_4[] = $value_4;
             }
-            $data->{'metrics'} = $values_79;
+            $data->{'metrics'} = $values_4;
         }
         if (null !== $object->getLogo()) {
             $data->{'logo'} = $object->getLogo();
@@ -222,46 +236,46 @@ class CompanyNormalizer extends SerializerAwareNormalizer implements Denormalize
             $data->{'type'} = $object->getType();
         }
         if (null !== $object->getTech()) {
-            $values_81 = array();
-            foreach ($object->getTech() as $value_82) {
-                $values_81[] = $value_82;
+            $values_5 = array();
+            foreach ($object->getTech() as $value_5) {
+                $values_5[] = $value_5;
             }
-            $data->{'tech'} = $values_81;
+            $data->{'tech'} = $values_5;
         }
         if (null !== $object->getCrunchbase()) {
-            $values_83 = array();
-            foreach ($object->getCrunchbase() as $value_84) {
-                $values_83[] = $value_84;
+            $values_6 = array();
+            foreach ($object->getCrunchbase() as $value_6) {
+                $values_6[] = $value_6;
             }
-            $data->{'crunchbase'} = $values_83;
+            $data->{'crunchbase'} = $values_6;
         }
         if (null !== $object->getAngellist()) {
-            $values_85 = array();
-            foreach ($object->getAngellist() as $value_86) {
-                $values_85[] = $value_86;
+            $values_7 = array();
+            foreach ($object->getAngellist() as $value_7) {
+                $values_7[] = $value_7;
             }
-            $data->{'angellist'} = $values_85;
+            $data->{'angellist'} = $values_7;
         }
         if (null !== $object->getTwitter()) {
-            $values_87 = array();
-            foreach ($object->getTwitter() as $value_88) {
-                $values_87[] = $value_88;
+            $values_8 = array();
+            foreach ($object->getTwitter() as $value_8) {
+                $values_8[] = $value_8;
             }
-            $data->{'twitter'} = $values_87;
+            $data->{'twitter'} = $values_8;
         }
         if (null !== $object->getLinkedin()) {
-            $values_89 = array();
-            foreach ($object->getLinkedin() as $value_90) {
-                $values_89[] = $value_90;
+            $values_9 = array();
+            foreach ($object->getLinkedin() as $value_9) {
+                $values_9[] = $value_9;
             }
-            $data->{'linkedin'} = $values_89;
+            $data->{'linkedin'} = $values_9;
         }
         if (null !== $object->getFacebook()) {
-            $values_91 = array();
-            foreach ($object->getFacebook() as $value_92) {
-                $values_91[] = $value_92;
+            $values_10 = array();
+            foreach ($object->getFacebook() as $value_10) {
+                $values_10[] = $value_10;
             }
-            $data->{'facebook'} = $values_91;
+            $data->{'facebook'} = $values_10;
         }
         return $data;
     }

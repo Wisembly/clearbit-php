@@ -34,37 +34,37 @@ class GeoNormalizer extends SerializerAwareNormalizer implements DenormalizerInt
         if (!isset($context['rootSchema'])) {
             $context['rootSchema'] = $object;
         }
-        if (isset($data->{'streetNumber'})) {
+        if (property_exists($data, 'streetNumber')) {
             $object->setStreetNumber($data->{'streetNumber'});
         }
-        if (isset($data->{'streetName'})) {
+        if (property_exists($data, 'streetName')) {
             $object->setStreetName($data->{'streetName'});
         }
-        if (isset($data->{'subPremise'})) {
+        if (property_exists($data, 'subPremise')) {
             $object->setSubPremise($data->{'subPremise'});
         }
-        if (isset($data->{'city'})) {
+        if (property_exists($data, 'city')) {
             $object->setCity($data->{'city'});
         }
-        if (isset($data->{'state'})) {
+        if (property_exists($data, 'state')) {
             $object->setState($data->{'state'});
         }
-        if (isset($data->{'stateCode'})) {
+        if (property_exists($data, 'stateCode')) {
             $object->setStateCode($data->{'stateCode'});
         }
-        if (isset($data->{'postalCode'})) {
+        if (property_exists($data, 'postalCode')) {
             $object->setPostalCode($data->{'postalCode'});
         }
-        if (isset($data->{'country'})) {
+        if (property_exists($data, 'country')) {
             $object->setCountry($data->{'country'});
         }
-        if (isset($data->{'countryCode'})) {
+        if (property_exists($data, 'countryCode')) {
             $object->setCountryCode($data->{'countryCode'});
         }
-        if (isset($data->{'lat'})) {
+        if (property_exists($data, 'lat')) {
             $object->setLat($data->{'lat'});
         }
-        if (isset($data->{'lng'})) {
+        if (property_exists($data, 'lng')) {
             $object->setLng($data->{'lng'});
         }
         return $object;

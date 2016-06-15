@@ -34,10 +34,10 @@ class CombinedNormalizer extends SerializerAwareNormalizer implements Denormaliz
         if (!isset($context['rootSchema'])) {
             $context['rootSchema'] = $object;
         }
-        if (isset($data->{'person'})) {
+        if (property_exists($data, 'person')) {
             $object->setPerson($this->serializer->deserialize($data->{'person'}, 'Clearbit\\Generated\\Model\\Person', 'raw', $context));
         }
-        if (isset($data->{'company'})) {
+        if (property_exists($data, 'company')) {
             $object->setCompany($this->serializer->deserialize($data->{'company'}, 'Clearbit\\Generated\\Model\\Company', 'raw', $context));
         }
         return $object;

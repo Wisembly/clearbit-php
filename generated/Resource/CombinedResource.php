@@ -28,7 +28,7 @@ class CombinedResource extends Resource
         $response = $this->httpClient->sendRequest($request);
         if (self::FETCH_OBJECT == $fetch) {
             if ('200' == $response->getStatusCode()) {
-                return $this->serializer->deserialize($response->getBody()->getContents(), 'Clearbit\\Generated\\Model\\Combined', 'json');
+                return $this->serializer->deserialize((string) $response->getBody(), 'Clearbit\\Generated\\Model\\Combined', 'json');
             }
         }
         return $response;

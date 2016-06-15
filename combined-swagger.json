@@ -209,7 +209,13 @@
                     "type": "string"
                     }
                 },
-                "sites": {
+                "category": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "site": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
