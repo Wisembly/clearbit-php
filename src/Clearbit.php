@@ -36,7 +36,7 @@ class Clearbit
         $this->messageFactory = $messageFactory;
     }
 
-    public function getCombined($parameters, $options = [])
+    public function getCombined($parameters, $fetch = Resource\CombinedResource::FETCH_OBJECT, $options = [])
     {
         if (null === $this->combinedResource) {
             $this->combinedResource = new Resource\CombinedResource(
@@ -52,7 +52,7 @@ class Clearbit
 
         return $this->combinedResource->getCombined(
             $parameters,
-            Resource\CombinedResource::FETCH_OBJECT,
+            $fetch,
             $options
         );
     }
