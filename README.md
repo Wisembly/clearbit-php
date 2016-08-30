@@ -4,8 +4,8 @@ PHP SDK for Clearbit API (http://clearbit.com).
 
 This SDK is NOT official, heavily inspired by [docker-php](https://github.com/docker-php/docker-php).
 
-We developped and maintain this library for our own usage and released it open
-source (see LICENCE.md) if it could help.
+We developed and maintain this library for our own usage and released it open source (see LICENCE.md) if it could help.
+
 Clearbit and its API belongs to Clearbit.
 
 ## Install
@@ -36,7 +36,7 @@ use Http\Client\Plugin\AuthenticationPlugin;
 use Http\Message\Authentication\Bearer;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
 
-use Http\Adater\Guzzle6\Client as GuzzleHttpClient;
+use Http\Adapter\Guzzle6\Client as GuzzleHttpClient;
 
 use Clearbit\Clearbit;
 
@@ -64,7 +64,7 @@ Resources this API supports:
 | Uri                                                                               | Methods   | Comments          |
 | ---------------------------------------------------------------------             | --------- | ---------         |
 | https://person.clearbit.com/v2/combined/find?email=:email                              | GET       |                   |
-## Developper
+## Developer
 
 This client is build using [jane-openapi](https://github.com/jolicode/jane-openapi).
 To generate the classes:
