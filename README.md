@@ -14,7 +14,7 @@ This client use [httplug](http://httplug.io/) for http client. Please
 [select](http://docs.php-http.org/en/latest/httplug/users.html) a client for
 your application and [select](http://docs.php-http.org/en/latest/message/message-factory.html) a MessageFactory.
 
-Exemple with guzzle6 as client and guzzlehttp as message factory:
+Example with guzzle6 as client and guzzlehttp as message factory:
 
 ```
 "wisembly/clearbit-php": "^2.0",
