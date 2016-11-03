@@ -36,7 +36,7 @@ use Http\Client\Plugin\AuthenticationPlugin;
 use Http\Message\Authentication\Bearer;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
 
-use Http\Adater\Guzzle6\Client as GuzzleHttpClient;
+use Http\Adapter\Guzzle6\Client as GuzzleHttpClient;
 
 use Clearbit\Clearbit;
 
