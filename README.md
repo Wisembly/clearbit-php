@@ -30,22 +30,9 @@ Example with guzzle6 as client and guzzlehttp as message factory:
 
 require_once 'vendor/autoload.php';
 
-use Http\Client\Plugin\PluginClient;
-use Http\Client\Plugin\AuthenticationPlugin;
-
-use Http\Message\Authentication\Bearer;
-use Http\Message\MessageFactory\GuzzleMessageFactory;
-
-use Http\Adapter\Guzzle6\Client as GuzzleHttpClient;
-
 use Clearbit\Clearbit;
 
-$socketClient = new GuzzleHttpClient();
-$authenticationPlugin = new AuthenticationPlugin(new Bearer($_SERVER['API_TOKEN']));
-
-$client = new PluginClient($socketClient, [$authenticationPlugin]);
-
-$clearbit = new Clearbit($client, new GuzzleMessageFactory);
+$clearbit = Clearbit::create($token);
 $combined = $clearbit->getCombined('foo@bar.com');
 
 var_dump($combined->getPerson());
