@@ -8,12 +8,6 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\ResponseInterface;
 use Http\Client\HttpClient;
 
-use Http\Client\Plugin\PluginClient;
-use Http\Client\Plugin\AuthenticationPlugin;
-use Http\Client\Curl\Client as CurlHttpClient;
-use Http\Adapter\Guzzle6\Client as GuzzleHttpClient;
-
-use Http\Message\Authentication\Bearer;
 use Http\Message\MessageFactory;
 
 use Clearbit\Generated\Model;
@@ -110,12 +104,7 @@ class ClearbitTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('API_TOKEN is not available');
         }
 
-        $socketClient = new GuzzleHttpClient();
-        $authenticationPlugin = new AuthenticationPlugin(new Bearer($_SERVER['API_TOKEN']));
-
-        $client = new PluginClient($socketClient, [$authenticationPlugin]);
-
-        $clearbit = new Clearbit($client, new MessageFactory\GuzzleMessageFactory);
+        $clearbit = Clearbit::create($_SERVER['API_TOKEN']);
         $combined = $clearbit->getCombined('bill.gates@microsoft.com');
 
         $this->assertInstanceof(Model\Combined::class, $combined);

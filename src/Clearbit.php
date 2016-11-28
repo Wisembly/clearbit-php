@@ -3,8 +3,18 @@
 namespace Clearbit;
 
 use Http\Message\MessageFactory;
+use Http\Message\Authentication\Bearer;
+
 use Http\Client\HttpClient;
+
+use Http\Client\Common\PluginClient;
+use Http\Client\Common\Plugin\AuthenticationPlugin;
+
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
+
 use Joli\Jane\Encoder\RawEncoder;
+
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -18,9 +28,22 @@ class Clearbit
     private $httpClient;
     private $combinedResource;
 
+    public static function create(
+        $token,
+        HttpClient $httpClient = null,
+        MessageFactory $messageFactory = null,
+        Serializer $serializer = null
+    ) {
+        $httpClient = new PluginClient(
+            $httpClient ?: HttpClientDiscovery::find(),
+            [new AuthenticationPlugin(new Bearer($token))]
+        );
+        return new self($httpClient, $messageFactory, $serializer);
+    }
+
     public function __construct(
         HttpClient $httpClient,
-        MessageFactory $messageFactory,
+        MessageFactory $messageFactory = null,
         Serializer $serializer = null
     ) {
         $this->httpClient = $httpClient;
@@ -33,7 +56,7 @@ class Clearbit
         }
 
         $this->serializer = $serializer;
-        $this->messageFactory = $messageFactory;
+        $this->messageFactory = $messageFactory ?: MessageFactoryDiscovery::find();
     }
 
     public function getCombined($parameters, $fetch = Resource\CombinedResource::FETCH_OBJECT, $options = [])
